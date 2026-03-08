@@ -1111,6 +1111,7 @@
       // If logged in, clicking the lock does nothing — use logout tip instead
     });
   }
+  window.handleLockClick = handleLockClick;
 
   async function handleLogout() {
     await supabase.auth.signOut();
