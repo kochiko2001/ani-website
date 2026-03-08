@@ -1025,7 +1025,17 @@
   const CLOUDINARY_CLOUD  = 'dzjby7zxv';
   const CLOUDINARY_PRESET = 'ani-website';
 
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  if (!window.supabase) {
+    console.error('[Auth] Supabase SDK failed to load — window.supabase is undefined. Check CDN or network.');
+  }
+
+  let supabase;
+  try {
+    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+    console.log('[Auth] Supabase client initialized successfully.');
+  } catch (err) {
+    console.error('[Auth] Failed to create Supabase client:', err);
+  }
 
   /* ── Auth state ────────────────────────────────────── */
   function setAuthUI(loggedIn) {
@@ -1055,6 +1065,7 @@
 
   // Check session on load
   (async () => {
+    if (!supabase) return;
     const { data: { session } } = await supabase.auth.getSession();
     setAuthUI(!!session);
 
@@ -1071,13 +1082,31 @@
   })();
 
   // Listen for auth changes
-  supabase.auth.onAuthStateChange((_event, session) => {
+  if (supabase) supabase.auth.onAuthStateChange((_event, session) => {
     setAuthUI(!!session);
   });
 
   /* ── Lock button logic ─────────────────────────────── */
   function handleLockClick() {
+    console.log('lock clicked');
+
+    if (!supabase) {
+      console.error('[Auth] Cannot handle lock click — Supabase client is not initialized.');
+      return;
+    }
+
+    const overlay = document.getElementById('modal-overlay');
+    if (!overlay) {
+      console.error('[Auth] modal-overlay element not found in DOM.');
+    } else {
+      console.log('[Auth] modal-overlay found. Current classes:', overlay.className);
+      const rect = overlay.getBoundingClientRect();
+      const style = window.getComputedStyle(overlay);
+      console.log('[Auth] modal-overlay z-index:', style.zIndex, '| opacity:', style.opacity, '| pointer-events:', style.pointerEvents);
+    }
+
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log('[Auth] session at lock click:', session ? 'logged in' : 'not logged in');
       if (!session) openModal();
       // If logged in, clicking the lock does nothing — use logout tip instead
     });
