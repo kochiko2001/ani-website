@@ -48,35 +48,72 @@
       height: 100vh;
       background: #2b2b2b;
       overflow: hidden;
+      cursor: pointer;
     }
 
-    .col-photo::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to right,
-        transparent 70%,
-        var(--bg) 100%
-      );
-    }
-
-    .photo-placeholder {
+    .photo-display {
       width: 100%;
       height: 100%;
       background: #232323;
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
       display: flex;
       align-items: flex-end;
       justify-content: flex-start;
       padding: 2rem;
     }
 
-    .photo-placeholder span {
+    .photo-display span {
       font-size: 0.7rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--text-muted);
       opacity: 0.5;
+    }
+
+    .photo-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, transparent 70%, var(--bg) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .upload-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      background: rgba(0, 0, 0, 0.45);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      z-index: 2;
+      color: var(--white);
+    }
+
+    .col-photo:hover .upload-overlay {
+      opacity: 1;
+    }
+
+    .upload-overlay svg {
+      width: 32px;
+      height: 32px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .upload-overlay span {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
     }
 
     /* ── Right column — content ─────────────────── */
@@ -89,18 +126,9 @@
       scrollbar-color: #333 transparent;
     }
 
-    .col-content::-webkit-scrollbar {
-      width: 4px;
-    }
-
-    .col-content::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .col-content::-webkit-scrollbar-thumb {
-      background: #333;
-      border-radius: 2px;
-    }
+    .col-content::-webkit-scrollbar { width: 4px; }
+    .col-content::-webkit-scrollbar-track { background: transparent; }
+    .col-content::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
 
     /* ── Header ─────────────────────────────────── */
     .headline {
@@ -186,8 +214,10 @@
       fill: currentColor;
     }
 
-    /* ── Experience section ──────────────────────── */
-    .experience {
+    /* ── Experience / Projects sections ──────────── */
+    .experience,
+    .projects,
+    .extras {
       margin-bottom: 4rem;
     }
 
@@ -272,6 +302,128 @@
       margin: 2.2rem 0;
     }
 
+    /* ── Education / Languages / Skills ─────────── */
+    .detail-row {
+      font-size: 0.88rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .detail-row strong {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .skills-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.2rem;
+    }
+
+    .skill-tag {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      border: 1px solid var(--rule);
+      border-radius: 3px;
+      padding: 0.2rem 0.6rem;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Editable UI ─────────────────────────────── */
+    .editable-block {
+      position: relative;
+    }
+
+    .edit-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-left: 0.55rem;
+      vertical-align: middle;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .editable-block:hover .edit-bar,
+    .editable-block.is-editing .edit-bar {
+      opacity: 1;
+    }
+
+    .pencil-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 3px 5px;
+      border-radius: 4px;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .pencil-btn:hover {
+      background: var(--icon-bg);
+      color: var(--white);
+    }
+
+    .pencil-btn svg {
+      width: 12px;
+      height: 12px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .save-btn {
+      display: none;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: #333;
+      color: var(--white);
+      border: 1px solid #444;
+      border-radius: 4px;
+      padding: 3px 10px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .save-btn:hover {
+      background: #444;
+    }
+
+    .editable-block.is-editing .save-btn {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .editable-block.is-editing [contenteditable="true"] {
+      outline: 1px solid #3a3a3a;
+      border-radius: 3px;
+      padding: 0.1rem 0.2rem;
+      margin: -0.1rem -0.2rem;
+    }
+
+    /* section-label row with inline edit bar */
+    .label-row {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 1.6rem;
+    }
+
+    .label-row .section-label {
+      margin-bottom: 0;
+    }
+
     /* ── Responsive ──────────────────────────────── */
     @media (max-width: 820px) {
       .layout {
@@ -314,10 +466,16 @@
 
 <div class="layout">
 
-  <!-- ── Left: Photo ── -->
-  <aside class="col-photo" aria-label="Photo">
-    <div class="photo-placeholder">
-      <span>photo</span>
+  <!-- ── Left: Photo (click to upload) ── -->
+  <aside class="col-photo" id="photo-panel" aria-label="Photo — click to upload">
+    <input type="file" id="photo-input" accept="image/*" hidden />
+    <div class="photo-display" id="photo-display">
+      <span id="photo-hint">photo</span>
+    </div>
+    <div class="photo-gradient"></div>
+    <div class="upload-overlay" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      <span id="upload-label">Upload photo</span>
     </div>
   </aside>
 
@@ -326,34 +484,31 @@
 
     <!-- Header -->
     <header>
-      <h1 class="headline">I'm Ani, and I'm obsessed with <em>data.</em></h1>
+      <div class="editable-block" id="block-headline">
+        <h1 class="headline" id="content-headline">I'm Ani, and I'm obsessed with <em>data.</em></h1><span class="edit-bar"><button class="pencil-btn" onclick="startEdit('headline')" title="Edit headline"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('headline')">Save</button></span>
+      </div>
       <hr class="rule" />
     </header>
 
     <!-- About Me -->
     <section class="about" aria-labelledby="about-label">
-      <p class="section-label" id="about-label">About Me</p>
+      <div class="label-row">
+        <p class="section-label" id="about-label">About Me</p>
+      </div>
 
-      <p>
-        I'm a data professional with a passion for turning messy, complex datasets into
-        clear narratives that drive real decisions. My work sits at the intersection of
-        analytics, strategy, and storytelling — I believe the best insight is one that
-        actually gets used.
-      </p>
-      <p>
-        Over the past several years I've worked across industries, building data pipelines,
-        designing dashboards, and partnering with product and business teams to identify
-        opportunities hiding in plain sight. I care deeply about data quality, reproducibility,
-        and making analysis accessible to non-technical stakeholders.
-      </p>
-      <p>
-        When I'm not wrangling data, I'm probably reading about behavioral economics,
-        hiking somewhere with a good view, or trying to make the perfect cup of coffee.
-        I'm always open to interesting problems — feel free to reach out.
-      </p>
+      <div class="editable-block" id="block-about-p1">
+        <p id="content-about-p1">I'm currently Head of Portfolio Intelligence at Standard Metrics, where I lead data strategy and analytics at the intersection of venture capital and portfolio operations. My work sits at the crossroads of analytics, strategy, and storytelling — I believe the best insight is one that actually gets used.</p><span class="edit-bar"><button class="pencil-btn" onclick="startEdit('about-p1')" title="Edit paragraph"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('about-p1')">Save</button></span>
+      </div>
+
+      <div class="editable-block" id="block-about-p2">
+        <p id="content-about-p2">Over the past several years I've worked across industries, building data pipelines, designing dashboards, and partnering with product and business teams to identify opportunities hiding in plain sight. I care deeply about data quality, reproducibility, and making analysis accessible to non-technical stakeholders.</p><span class="edit-bar"><button class="pencil-btn" onclick="startEdit('about-p2')" title="Edit paragraph"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('about-p2')">Save</button></span>
+      </div>
+
+      <div class="editable-block" id="block-about-p3">
+        <p id="content-about-p3">When I'm not wrangling data, I'm probably reading about behavioral economics, hiking somewhere with a good view, or trying to make the perfect cup of coffee. I'm always open to interesting problems — feel free to reach out.</p><span class="edit-bar"><button class="pencil-btn" onclick="startEdit('about-p3')" title="Edit paragraph"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('about-p3')">Save</button></span>
+      </div>
 
       <div class="social-icons" aria-label="Contact links">
-
         <!-- LinkedIn -->
         <a href="#" class="icon-btn" aria-label="LinkedIn">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -385,7 +540,6 @@
               .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
           </svg>
         </a>
-
       </div>
     </section>
 
@@ -395,69 +549,305 @@
     <section class="experience" aria-labelledby="exp-label">
       <p class="section-label" id="exp-label">Professional Experience</p>
 
-      <!-- Role 1 -->
-      <div class="role">
-        <div class="role-header">
-          <p class="role-title">Senior Data Analyst</p>
-          <div class="role-meta">
-            <span class="role-company">Acme Analytics</span>
-            <span class="role-sep">/</span>
-            <span class="role-location">New York, NY</span>
-            <span class="role-date">Jan 2023 – Present</span>
+      <!-- Standard Metrics -->
+      <div class="role editable-block" id="block-role-sm">
+        <div id="content-role-sm">
+          <div class="role-header">
+            <p class="role-title">Head of Portfolio Intelligence</p>
+            <div class="role-meta">
+              <span class="role-company">Standard Metrics</span>
+              <span class="role-sep">/</span>
+              <span class="role-location">Remote</span>
+              <span class="role-date">Jan 2026 – Present</span>
+            </div>
           </div>
+          <ul class="role-bullets">
+            <li>Led API integration of finance data from iLevel into Snowflake, unlocking real-time portfolio visibility.</li>
+            <li>Built portfolio review dashboards that transformed GP meetings with streamlined workflows and richer insights.</li>
+            <li>Standardized data collection and definitions across the portfolio, reducing reporting noise.</li>
+            <li>Enabled data-driven Investor Relations, empowering the IR team to respond to LP inquiries with precise metrics.</li>
+          </ul>
         </div>
-        <ul class="role-bullets">
-          <li>Led end-to-end design of a self-serve analytics platform adopted by 200+ internal users across product, marketing, and finance teams.</li>
-          <li>Built and maintained core data models in dbt, reducing query run times by 60% and improving data reliability across reporting surfaces.</li>
-          <li>Partnered with the growth team to instrument and analyze a major A/B testing program, directly influencing a product decision worth $2M in incremental ARR.</li>
-          <li>Mentored two junior analysts and established team-wide coding standards and documentation practices.</li>
-        </ul>
+        <span class="edit-bar"><button class="pencil-btn" onclick="startEdit('role-sm')" title="Edit role"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('role-sm')">Save</button></span>
       </div>
 
       <hr class="role-divider" />
 
-      <!-- Role 2 -->
-      <div class="role">
-        <div class="role-header">
-          <p class="role-title">Data Analyst</p>
-          <div class="role-meta">
-            <span class="role-company">Meridian Health</span>
-            <span class="role-sep">/</span>
-            <span class="role-location">Boston, MA</span>
-            <span class="role-date">Jun 2021 – Dec 2022</span>
+      <!-- Battery Ventures -->
+      <div class="role editable-block" id="block-role-bv">
+        <div id="content-role-bv">
+          <div class="role-header">
+            <p class="role-title">VP, Portfolio Analytics</p>
+            <div class="role-meta">
+              <span class="role-company">Battery Ventures</span>
+              <span class="role-sep">/</span>
+              <span class="role-location">Remote</span>
+              <span class="role-date">2023 – 2025</span>
+            </div>
           </div>
+          <ul class="role-bullets">
+            <li>Built and maintained portfolio analytics infrastructure, providing LPs and GPs with real-time visibility into company performance.</li>
+            <li>Developed standardized reporting frameworks across a portfolio of high-growth companies.</li>
+            <li>Partnered with portfolio CFOs to improve financial data quality, collection cadence, and board-ready presentation.</li>
+          </ul>
         </div>
-        <ul class="role-bullets">
-          <li>Designed and automated weekly KPI reporting for clinical operations leadership, cutting manual report preparation from 8 hours to under 30 minutes.</li>
-          <li>Developed a patient engagement scoring model in Python that improved outreach targeting efficiency by 35%.</li>
-          <li>Collaborated cross-functionally with engineering and clinical teams to define data collection standards for a new EHR integration.</li>
-        </ul>
+        <span class="edit-bar"><button class="pencil-btn" onclick="startEdit('role-bv')" title="Edit role"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('role-bv')">Save</button></span>
       </div>
 
       <hr class="role-divider" />
 
-      <!-- Role 3 -->
-      <div class="role">
-        <div class="role-header">
-          <p class="role-title">Business Intelligence Associate</p>
-          <div class="role-meta">
-            <span class="role-company">Frontline Retail Group</span>
-            <span class="role-sep">/</span>
-            <span class="role-location">Atlanta, GA</span>
-            <span class="role-date">Aug 2019 – May 2021</span>
+      <!-- Y Combinator -->
+      <div class="role editable-block" id="block-role-yc">
+        <div id="content-role-yc">
+          <div class="role-header">
+            <p class="role-title">Finance Technology Lead</p>
+            <div class="role-meta">
+              <span class="role-company">Y Combinator</span>
+              <span class="role-sep">/</span>
+              <span class="role-location">San Francisco, CA</span>
+              <span class="role-date">2021 – 2023</span>
+            </div>
+          </div>
+          <ul class="role-bullets">
+            <li>Led implementation of financial technology systems supporting thousands of portfolio companies.</li>
+            <li>Built automated data pipelines connecting accounting, banking, and analytics platforms to improve operational efficiency.</li>
+            <li>Advised early-stage founders on finance stack selection, implementation, and reporting best practices.</li>
+          </ul>
+        </div>
+        <span class="edit-bar"><button class="pencil-btn" onclick="startEdit('role-yc')" title="Edit role"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('role-yc')">Save</button></span>
+      </div>
+
+      <hr class="role-divider" />
+
+      <!-- Deloitte Investments -->
+      <div class="role editable-block" id="block-role-di">
+        <div id="content-role-di">
+          <div class="role-header">
+            <p class="role-title">Manager</p>
+            <div class="role-meta">
+              <span class="role-company">Deloitte Investments</span>
+              <span class="role-sep">/</span>
+              <span class="role-location">Atlanta, GA</span>
+              <span class="role-date">2019 – 2021</span>
+            </div>
+          </div>
+          <ul class="role-bullets">
+            <li>Managed cross-functional teams delivering financial analytics solutions for private equity and investment management clients.</li>
+            <li>Developed investment performance reporting models and fund-level KPI frameworks for clients with multi-billion dollar AUM.</li>
+            <li>Led due diligence analytics engagements for fund acquisitions, portfolio exits, and strategic transactions.</li>
+          </ul>
+        </div>
+        <span class="edit-bar"><button class="pencil-btn" onclick="startEdit('role-di')" title="Edit role"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('role-di')">Save</button></span>
+      </div>
+
+      <hr class="role-divider" />
+
+      <!-- Deloitte Consulting -->
+      <div class="role editable-block" id="block-role-dc">
+        <div id="content-role-dc">
+          <div class="role-header">
+            <p class="role-title">Senior Consultant</p>
+            <div class="role-meta">
+              <span class="role-company">Deloitte Consulting</span>
+              <span class="role-sep">/</span>
+              <span class="role-location">Atlanta, GA</span>
+              <span class="role-date">2016 – 2019</span>
+            </div>
+          </div>
+          <ul class="role-bullets">
+            <li>Delivered strategic analytics engagements for financial services clients, translating complex data into executive-ready insights.</li>
+            <li>Designed and implemented data governance frameworks improving reporting accuracy and reducing manual reconciliation overhead.</li>
+            <li>Developed C-suite dashboards and KPI frameworks aligned to business strategy and investor reporting requirements.</li>
+          </ul>
+        </div>
+        <span class="edit-bar"><button class="pencil-btn" onclick="startEdit('role-dc')" title="Edit role"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('role-dc')">Save</button></span>
+      </div>
+
+    </section>
+
+    <hr class="rule" />
+
+    <!-- Personal Projects -->
+    <section class="projects" aria-labelledby="proj-label">
+      <p class="section-label" id="proj-label">Personal Projects</p>
+
+      <div class="role editable-block" id="block-role-cartooli">
+        <div id="content-role-cartooli">
+          <div class="role-header">
+            <p class="role-title">Cofounder</p>
+            <div class="role-meta">
+              <span class="role-company">Cartooli</span>
+              <span class="role-sep">/</span>
+              <span class="role-location">Remote</span>
+              <span class="role-date">2019 – Present</span>
+            </div>
+          </div>
+          <ul class="role-bullets">
+            <li>Co-founded and continue to develop Cartooli, building the product strategy, technical roadmap, and go-to-market approach from the ground up.</li>
+            <li>Designed and built core data features that power the product's analytics and reporting capabilities.</li>
+            <li>Managed all aspects of operations including customer development, partnerships, and iterative product launches.</li>
+          </ul>
+        </div>
+        <span class="edit-bar"><button class="pencil-btn" onclick="startEdit('role-cartooli')" title="Edit"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('role-cartooli')">Save</button></span>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- Education, Languages, Skills -->
+    <section class="extras" aria-label="Education, Languages, and Skills">
+
+      <!-- Education -->
+      <div class="editable-block" id="block-education" style="margin-bottom: 2.4rem;">
+        <p class="section-label">Education</p>
+        <div id="content-education">
+          <p class="detail-row">
+            <strong>Georgia State University</strong>, Robinson School of Business
+          </p>
+          <p class="detail-row">
+            B.B.A. Finance &amp; Computer Information Systems &mdash; <em>Summa Cum Laude</em>, 4.0 GPA
+          </p>
+          <p class="detail-row">CFA Level I</p>
+        </div>
+        <span class="edit-bar"><button class="pencil-btn" onclick="startEdit('education')" title="Edit education"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('education')">Save</button></span>
+      </div>
+
+      <!-- Languages -->
+      <div class="editable-block" id="block-languages" style="margin-bottom: 2.4rem;">
+        <p class="section-label">Languages</p>
+        <div id="content-languages">
+          <p class="detail-row"><strong>Georgian</strong> — native</p>
+          <p class="detail-row"><strong>Russian</strong> — conversational</p>
+        </div>
+        <span class="edit-bar"><button class="pencil-btn" onclick="startEdit('languages')" title="Edit languages"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('languages')">Save</button></span>
+      </div>
+
+      <!-- Skills -->
+      <div class="editable-block" id="block-skills">
+        <p class="section-label">Skills</p>
+        <div id="content-skills">
+          <div class="skills-tags">
+            <span class="skill-tag">Business Strategy</span>
+            <span class="skill-tag">Fund Strategy</span>
+            <span class="skill-tag">Management Consulting</span>
+            <span class="skill-tag">Executive Communications</span>
+            <span class="skill-tag">Analytics</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Data Visualization</span>
+            <span class="skill-tag">Financial Modeling</span>
           </div>
         </div>
-        <ul class="role-bullets">
-          <li>Built Tableau dashboards for 15 regional managers tracking inventory, sell-through, and store-level P&amp;L — replacing a legacy Excel process.</li>
-          <li>Conducted ad-hoc analyses on promotional performance, providing actionable recommendations that informed seasonal buying strategy.</li>
-          <li>Maintained and documented the data warehouse, improving data discoverability for non-technical stakeholders.</li>
-        </ul>
+        <span class="edit-bar"><button class="pencil-btn" onclick="startEdit('skills')" title="Edit skills"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('skills')">Save</button></span>
       </div>
 
     </section>
 
   </main>
 </div>
+
+<script>
+  /* ── Photo upload ──────────────────────────────────── */
+  const photoPanel   = document.getElementById('photo-panel');
+  const photoInput   = document.getElementById('photo-input');
+  const photoDisplay = document.getElementById('photo-display');
+  const photoHint    = document.getElementById('photo-hint');
+  const uploadLabel  = document.getElementById('upload-label');
+
+  // Restore saved photo
+  const savedPhoto = localStorage.getItem('ani-photo');
+  if (savedPhoto) {
+    photoDisplay.style.backgroundImage = `url(${savedPhoto})`;
+    photoHint.style.display = 'none';
+    uploadLabel.textContent = 'Change photo';
+  }
+
+  photoPanel.addEventListener('click', () => photoInput.click());
+
+  photoInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const dataUrl = ev.target.result;
+      photoDisplay.style.backgroundImage = `url(${dataUrl})`;
+      photoHint.style.display = 'none';
+      uploadLabel.textContent = 'Change photo';
+      try {
+        localStorage.setItem('ani-photo', dataUrl);
+      } catch {
+        // localStorage quota exceeded for large images — silently skip
+      }
+    };
+    reader.readAsDataURL(file);
+    // reset so the same file can be re-selected
+    e.target.value = '';
+  });
+
+  /* ── Editable sections ─────────────────────────────── */
+
+  // Map of key → content element id
+  const CONTENT_IDS = {
+    'headline':       'content-headline',
+    'about-p1':       'content-about-p1',
+    'about-p2':       'content-about-p2',
+    'about-p3':       'content-about-p3',
+    'role-sm':        'content-role-sm',
+    'role-bv':        'content-role-bv',
+    'role-yc':        'content-role-yc',
+    'role-di':        'content-role-di',
+    'role-dc':        'content-role-dc',
+    'role-cartooli':  'content-role-cartooli',
+    'education':      'content-education',
+    'languages':      'content-languages',
+    'skills':         'content-skills',
+  };
+
+  // Restore saved content on load
+  Object.entries(CONTENT_IDS).forEach(([key, elId]) => {
+    const saved = localStorage.getItem('ani-' + key);
+    if (saved) {
+      const el = document.getElementById(elId);
+      if (el) el.innerHTML = saved;
+    }
+  });
+
+  function startEdit(key) {
+    const contentEl = document.getElementById(CONTENT_IDS[key]);
+    const blockEl   = document.getElementById('block-' + key);
+    if (!contentEl || !blockEl) return;
+
+    contentEl.contentEditable = 'true';
+    contentEl.focus();
+    blockEl.classList.add('is-editing');
+
+    // Move cursor to end
+    const range = document.createRange();
+    range.selectNodeContents(contentEl);
+    range.collapse(false);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+
+  function saveEdit(key) {
+    const contentEl = document.getElementById(CONTENT_IDS[key]);
+    const blockEl   = document.getElementById('block-' + key);
+    if (!contentEl || !blockEl) return;
+
+    contentEl.contentEditable = 'false';
+    blockEl.classList.remove('is-editing');
+    localStorage.setItem('ani-' + key, contentEl.innerHTML);
+  }
+
+  // Save on Enter key for single-line fields (headline)
+  document.getElementById('content-headline').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      saveEdit('headline');
+    }
+  });
+</script>
 
 </body>
 </html>
