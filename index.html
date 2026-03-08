@@ -984,7 +984,7 @@
 <!-- ── Lock button (bottom right) ── -->
 <div class="lock-btn-wrap" id="lock-btn-wrap">
   <div class="lock-logout-tip" id="logout-tip" onclick="handleLogout()">Log out</div>
-  <button class="lock-btn" id="lock-btn" onclick="handleLockClick()" aria-label="Login">
+  <button class="lock-btn" id="lock-btn" aria-label="Login">
     <!-- locked icon (default) -->
     <svg id="lock-icon-locked" viewBox="0 0 24 24">
       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
@@ -1111,7 +1111,7 @@
       // If logged in, clicking the lock does nothing — use logout tip instead
     });
   }
-  window.handleLockClick = handleLockClick;
+  document.getElementById('lock-btn').addEventListener('click', handleLockClick);
 
   async function handleLogout() {
     await supabase.auth.signOut();
