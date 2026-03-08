@@ -1009,6 +1009,35 @@
 </div>
 
 <script>
+  /* ── Favicon ────────────────────────────────────────── */
+  function setInitialsFavicon() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 64;
+    canvas.height = 64;
+    const ctx = canvas.getContext('2d');
+
+    // Background
+    ctx.fillStyle = '#1a1a1a';
+    ctx.fillRect(0, 0, 64, 64);
+
+    // Text
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 26px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('AK', 32, 32);
+
+    let link = document.querySelector("link[rel~='icon']");
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      document.head.appendChild(link);
+    }
+    link.href = canvas.toDataURL();
+  }
+
+  setInitialsFavicon();
+
   /* ── Supabase & Cloudinary config ──────────────────── */
   const SUPABASE_URL    = 'https://qvhvgiirubuzldrrnwdc.supabase.co';
   const SUPABASE_ANON   = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2aHZnaWlydWJ1emxkcnJud2RjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwMDE1OTEsImV4cCI6MjA4ODU3NzU5MX0.uHt5EZfkgbvAtb9yMd1XOy02BvXWjaOOcmMDJgwS47M';
@@ -1168,21 +1197,10 @@
   const photoHint    = document.getElementById('photo-hint');
   const uploadLabel  = document.getElementById('upload-label');
 
-  function setFavicon(url) {
-    let link = document.querySelector("link[rel~='icon']");
-    if (!link) {
-      link = document.createElement('link');
-      link.rel = 'icon';
-      document.head.appendChild(link);
-    }
-    link.href = url;
-  }
-
   function setPhoto(url) {
     photoDisplay.style.backgroundImage = `url(${url})`;
     photoHint.style.display = 'none';
     uploadLabel.textContent = 'Change photo';
-    setFavicon(url);
   }
 
   photoPanel.addEventListener('click', () => {
