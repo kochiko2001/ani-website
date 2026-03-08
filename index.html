@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -747,6 +748,14 @@
 </div>
 
 <script>
+  /* ── Supabase & Cloudinary config ──────────────────── */
+  const SUPABASE_URL    = 'https://qvhvgiirubuzldrrnwdc.supabase.co';
+  const SUPABASE_ANON   = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2aHZnaWlydWJ1emxkcnJud2RjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwMDE1OTEsImV4cCI6MjA4ODU3NzU5MX0.uHt5EZfkgbvAtb9yMd1XOy02BvXWjaOOcmMDJgwS47M';
+  const CLOUDINARY_CLOUD  = 'dzjby7zxv';
+  const CLOUDINARY_PRESET = 'ani-website';
+
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
   /* ── Photo upload ──────────────────────────────────── */
   const photoPanel   = document.getElementById('photo-panel');
   const photoInput   = document.getElementById('photo-input');
@@ -754,34 +763,61 @@
   const photoHint    = document.getElementById('photo-hint');
   const uploadLabel  = document.getElementById('upload-label');
 
-  // Restore saved photo
-  const savedPhoto = localStorage.getItem('ani-photo');
-  if (savedPhoto) {
-    photoDisplay.style.backgroundImage = `url(${savedPhoto})`;
+  // On page load: fetch profile image URL from Supabase
+  (async () => {
+    const { data, error } = await supabase
+      .from('content')
+      .select('value')
+      .eq('key', 'profile_image')
+      .eq('category', 'hero')
+      .maybeSingle();
+    if (!error && data?.value) {
+      setPhoto(data.value);
+    }
+  })();
+
+  function setPhoto(url) {
+    photoDisplay.style.backgroundImage = `url(${url})`;
     photoHint.style.display = 'none';
     uploadLabel.textContent = 'Change photo';
   }
 
   photoPanel.addEventListener('click', () => photoInput.click());
 
-  photoInput.addEventListener('change', (e) => {
+  photoInput.addEventListener('change', async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      const dataUrl = ev.target.result;
-      photoDisplay.style.backgroundImage = `url(${dataUrl})`;
-      photoHint.style.display = 'none';
-      uploadLabel.textContent = 'Change photo';
-      try {
-        localStorage.setItem('ani-photo', dataUrl);
-      } catch {
-        // localStorage quota exceeded for large images — silently skip
-      }
-    };
-    reader.readAsDataURL(file);
-    // reset so the same file can be re-selected
     e.target.value = '';
+
+    uploadLabel.textContent = 'Uploading…';
+
+    try {
+      // 1. Upload to Cloudinary
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', CLOUDINARY_PRESET);
+
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`,
+        { method: 'POST', body: formData }
+      );
+      if (!res.ok) throw new Error(`Cloudinary upload failed: ${res.status}`);
+      const { secure_url } = await res.json();
+
+      // 2. Save URL to Supabase
+      const { error } = await supabase
+        .from('content')
+        .upsert(
+          { key: 'profile_image', category: 'hero', value: secure_url },
+          { onConflict: 'key,category' }
+        );
+      if (error) throw error;
+
+      setPhoto(secure_url);
+    } catch (err) {
+      console.error('Photo upload error:', err);
+      uploadLabel.textContent = 'Upload failed — try again';
+    }
   });
 
   /* ── Editable sections ─────────────────────────────── */
