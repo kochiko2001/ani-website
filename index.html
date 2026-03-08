@@ -1029,7 +1029,7 @@
     console.error('[Auth] Supabase SDK failed to load — window.supabase is undefined. Check CDN or network.');
   }
 
-  let supabase;
+  var supabase;
   try {
     supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
     console.log('[Auth] Supabase client initialized successfully.');
