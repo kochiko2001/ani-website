@@ -1267,8 +1267,18 @@
     'skills':         'content-skills',
   };
 
-  // Restore saved content on load — fetch from Supabase first, fall back to localStorage
+  // Restore saved content on load — apply localStorage first, then Supabase on top (Supabase wins)
   async function loadContentFromSupabase() {
+    // Apply localStorage first as a baseline
+    Object.entries(CONTENT_IDS).forEach(([key, elId]) => {
+      const saved = localStorage.getItem('ani-' + key);
+      if (saved) {
+        const el = document.getElementById(elId);
+        if (el) el.innerHTML = saved;
+      }
+    });
+
+    // Fetch from Supabase and overwrite — Supabase takes priority
     if (supabase) {
       const { data, error } = await supabase
         .from('content')
@@ -1282,17 +1292,8 @@
             if (el) el.innerHTML = value;
           }
         });
-        return;
       }
     }
-    // Fallback: restore from localStorage
-    Object.entries(CONTENT_IDS).forEach(([key, elId]) => {
-      const saved = localStorage.getItem('ani-' + key);
-      if (saved) {
-        const el = document.getElementById(elId);
-        if (el) el.innerHTML = saved;
-      }
-    });
   }
   loadContentFromSupabase();
 
@@ -1322,14 +1323,17 @@
     contentEl.contentEditable = 'false';
     blockEl.classList.remove('is-editing');
 
-    const value = contentEl.innerHTML;
-    localStorage.setItem('ani-' + key, value);
+    const html = contentEl.innerHTML;
+    localStorage.setItem('ani-' + key, html);
 
     if (supabase) {
-      await supabase.from('content').upsert(
-        { key, category: 'page', value },
-        { onConflict: 'key' }
-      );
+      const { error } = await supabase
+        .from('content')
+        .upsert(
+          { key: key, category: 'page', value: html },
+          { onConflict: 'key,category' }
+        );
+      if (error) console.error('Save error:', error);
     }
   }
 
