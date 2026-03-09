@@ -283,36 +283,12 @@
       white-space: nowrap;
     }
 
-    .role-bullets {
-      list-style: none;
-      padding: 0;
-    }
-
-    .role-bullets li {
-      position: relative;
-      padding-left: 1.1rem;
+    .role-summary {
       font-size: 0.88rem;
       font-weight: 300;
       line-height: 1.75;
       color: var(--text);
-      margin-bottom: 0.4rem;
-    }
-
-    .role-bullets li::before {
-      content: '–';
-      position: absolute;
-      left: 0;
-      color: var(--text-muted);
-    }
-
-    .role-sub-label {
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-top: 1rem;
-      margin-bottom: 0.4rem;
+      margin: 0;
     }
 
     .role-divider {
@@ -766,12 +742,7 @@
               <span class="role-date">Jan 2026 – Present</span>
             </div>
           </div>
-          <ul class="role-bullets">
-            <li>Led API integration of finance data from iLevel into Snowflake, unlocking real-time portfolio visibility and enabling data-driven investment decisions across 150+ companies</li>
-            <li>Built portfolio review dashboards that transformed GP meetings with streamlined workflows and richer insights</li>
-            <li>Standardized data collection and definitions across the entire portfolio, reducing reporting noise and creating a unified foundation for company benchmarking and strategic analysis</li>
-            <li>Enabled data-driven Investor Relations, empowering the IR team to respond to LP inquiries with precise metrics and analysis, strengthening LP confidence and transparency</li>
-          </ul>
+          <p class="role-summary">Built the data infrastructure connecting iLevel to Snowflake across 150+ portfolio companies, converting fragmented finance data into real-time visibility that drives investment decisions at scale. Redesigned GP meeting workflows through purpose-built dashboards and standardized reporting definitions — eliminating noise and creating a shared language for company benchmarking. Armed the IR team with precise, on-demand metrics, replacing ad hoc analysis with a structured reporting operation that strengthens LP confidence and transparency.</p>
         </div>
         <span class="edit-bar"><button class="pencil-btn" onclick="startEdit('role-sm')" title="Edit role"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('role-sm')">Save</button></span>
       </div>
@@ -790,12 +761,7 @@
               <span class="role-date">Feb 2024 – Jan 2026</span>
             </div>
           </div>
-          <ul class="role-bullets">
-            <li>Led API integration of finance data from iLevel into Snowflake, unlocking real-time portfolio visibility and enabling data-driven investment decisions across 150+ companies</li>
-            <li>Built portfolio review dashboards that transformed GP meetings with streamlined workflows and richer insights</li>
-            <li>Standardized data collection and definitions across the entire portfolio, reducing reporting noise</li>
-            <li>Enabled data-driven Investor Relations, empowering the IR team to respond to LP inquiries with precise metrics</li>
-          </ul>
+          <p class="role-summary">Built the analytics layer for a 150+ company portfolio — architecting the iLevel-to-Snowflake data pipeline that gave the firm real-time visibility into portfolio performance for the first time. Redesigned GP meeting workflows through purpose-built dashboards and standardized data definitions, creating a consistent foundation for cross-portfolio benchmarking. Enabled the IR team to respond to LP inquiries with precision metrics, replacing ad hoc analysis with a repeatable, structured reporting operation.</p>
         </div>
         <span class="edit-bar"><button class="pencil-btn" onclick="startEdit('role-bv')" title="Edit role"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('role-bv')">Save</button></span>
       </div>
@@ -814,13 +780,7 @@
               <span class="role-date">Jan 2020 – Feb 2024</span>
             </div>
           </div>
-          <ul class="role-bullets">
-            <li>Built investment management software, breaking out of the constraints of Excel into a structured cloud data environment and making once siloed finance data accessible across YC</li>
-            <li>Developed Investments Dashboard for easy management of investments pipeline; consolidated dispersed data in one product to shorten the time to investment decision</li>
-            <li>Built products, dashboards, and processes to improve information flow between Finance and the rest of YC</li>
-            <li>Replaced the manual process of calculating unrealized market value from Excel with logic in SQL, enabling fund performance analysis on the fly</li>
-            <li>Performed analytics to inform strategic decisions (fund strategy, deployment pacing, estimating proceeds and reserve planning)</li>
-          </ul>
+          <p class="role-summary">Rebuilt YC's investment management infrastructure from the ground up — migrating a sprawling Excel operation into a structured cloud data environment that made finance data accessible across the organization for the first time. Replaced manual unrealized market value calculations with SQL-based logic to enable on-demand fund performance analysis, and delivered an Investments Dashboard that condensed a fragmented pipeline into a single, fast path to investment decisions. Served as the analytical engine behind fund strategy, deployment pacing, and reserve planning at one of the most active investors in tech.</p>
         </div>
         <span class="edit-bar"><button class="pencil-btn" onclick="startEdit('role-yc')" title="Edit role"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('role-yc')">Save</button></span>
       </div>
@@ -839,12 +799,7 @@
               <span class="role-date">2015 – 2019</span>
             </div>
           </div>
-          <ul class="role-bullets">
-            <li>Presented growth-oriented investment recommendations to Deloitte's Executive Leadership; evaluated strategic rationale, long term growth potential and organizational fit</li>
-            <li>Collaborated across multiple stakeholders (Corporate Development, Finance, Functional Area Leaders), settling ambiguity and driving alignment</li>
-            <li>Developed and implemented pricing strategy for Deloitte's portfolio businesses</li>
-            <li>Worked alongside executives of acquired businesses to help them develop long term vision and operational roadmap</li>
-          </ul>
+          <p class="role-summary">Advised Deloitte's Executive Leadership on growth-oriented acquisitions — evaluating strategic rationale, long-term potential, and organizational fit across a complex portfolio of investment targets. Drove pricing strategy for portfolio businesses and partnered directly with acquired company executives to build long-term vision and operational roadmaps, bridging deal execution with post-acquisition performance.</p>
         </div>
         <span class="edit-bar"><button class="pencil-btn" onclick="startEdit('role-di')" title="Edit role"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('role-di')">Save</button></span>
       </div>
@@ -863,27 +818,7 @@
               <span class="role-date">2010 – 2015</span>
             </div>
           </div>
-          <p class="role-sub-label">Strategy</p>
-          <ul class="role-bullets">
-            <li>Assessed new business opportunities for a major international bottler and distributor, evaluating options across the value chain</li>
-            <li>Led design of a dynamic statistical forecasting model at a Fortune 100 company ($50B in revenue), resulting in streamlined planning process</li>
-            <li>Led a team of 7, designing a VBA based MS Office Toolbar Add-In saving firm $55M annually</li>
-          </ul>
-          <p class="role-sub-label">Operations</p>
-          <ul class="role-bullets">
-            <li>Led a team of 15, implementing financial planning &amp; forecasting system at a Fortune 100 company</li>
-            <li>Ensured regulatory compliance of a top US bank's Credit Card business, saving the company millions of dollars</li>
-          </ul>
-          <p class="role-sub-label">Financial Management &amp; Analytics</p>
-          <ul class="role-bullets">
-            <li>Successfully managed the budget of a $120M project with 200+ people, designing an expense analysis tool that resulted in 20% cost savings</li>
-            <li>Trained junior staff on complex financial and regulatory Excel/Access based analytical models and Tableau</li>
-          </ul>
-          <p class="role-sub-label">Community / Pro Bono</p>
-          <ul class="role-bullets">
-            <li>Led a pro-bono project at a non-profit, advising on a $17M expansion opportunity</li>
-            <li>Managed a team of four renovating apartments of homeless veterans</li>
-          </ul>
+          <p class="role-summary">Delivered high-stakes engagements across Fortune 100 companies — managing a $120M project budget across 200+ people, leading a $55M annual savings initiative, and driving financial planning system implementations with teams of 15. Strengthened regulatory compliance for a top US bank's credit card business and built a statistical forecasting model at a $50B-revenue company that streamlined enterprise-wide planning. Beyond client work, advised a non-profit on a $17M expansion opportunity and led a volunteer team renovating apartments for homeless veterans.</p>
         </div>
         <span class="edit-bar"><button class="pencil-btn" onclick="startEdit('role-dc')" title="Edit role"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('role-dc')">Save</button></span>
       </div>
@@ -907,11 +842,7 @@
               <span class="role-date">2019 – Present</span>
             </div>
           </div>
-          <ul class="role-bullets">
-            <li>Co-founded and continue to develop Cartooli, building the product strategy, technical roadmap, and go-to-market approach from the ground up.</li>
-            <li>Designed and built core data features that power the product's analytics and reporting capabilities.</li>
-            <li>Managed all aspects of operations including customer development, partnerships, and iterative product launches.</li>
-          </ul>
+          <p class="role-summary">Co-founded Cartooli and led every dimension of the business — from product strategy and technical roadmap to go-to-market execution. Personally designed and built the core data and analytics features while owning customer development, partnerships, and iterative product launches end-to-end.</p>
         </div>
         <span class="edit-bar"><button class="pencil-btn" onclick="startEdit('role-cartooli')" title="Edit"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('role-cartooli')">Save</button></span>
       </div>
