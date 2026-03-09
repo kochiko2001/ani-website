@@ -1267,14 +1267,34 @@
     'skills':         'content-skills',
   };
 
-  // Restore saved content on load
-  Object.entries(CONTENT_IDS).forEach(([key, elId]) => {
-    const saved = localStorage.getItem('ani-' + key);
-    if (saved) {
-      const el = document.getElementById(elId);
-      if (el) el.innerHTML = saved;
+  // Restore saved content on load — fetch from Supabase first, fall back to localStorage
+  async function loadContentFromSupabase() {
+    if (supabase) {
+      const { data, error } = await supabase
+        .from('content')
+        .select('key, value')
+        .eq('category', 'page');
+      if (!error && data) {
+        data.forEach(({ key, value }) => {
+          const elId = CONTENT_IDS[key];
+          if (elId) {
+            const el = document.getElementById(elId);
+            if (el) el.innerHTML = value;
+          }
+        });
+        return;
+      }
     }
-  });
+    // Fallback: restore from localStorage
+    Object.entries(CONTENT_IDS).forEach(([key, elId]) => {
+      const saved = localStorage.getItem('ani-' + key);
+      if (saved) {
+        const el = document.getElementById(elId);
+        if (el) el.innerHTML = saved;
+      }
+    });
+  }
+  loadContentFromSupabase();
 
   function startEdit(key) {
     const contentEl = document.getElementById(CONTENT_IDS[key]);
@@ -1294,14 +1314,23 @@
     sel.addRange(range);
   }
 
-  function saveEdit(key) {
+  async function saveEdit(key) {
     const contentEl = document.getElementById(CONTENT_IDS[key]);
     const blockEl   = document.getElementById('block-' + key);
     if (!contentEl || !blockEl) return;
 
     contentEl.contentEditable = 'false';
     blockEl.classList.remove('is-editing');
-    localStorage.setItem('ani-' + key, contentEl.innerHTML);
+
+    const value = contentEl.innerHTML;
+    localStorage.setItem('ani-' + key, value);
+
+    if (supabase) {
+      await supabase.from('content').upsert(
+        { key, category: 'page', value },
+        { onConflict: 'key' }
+      );
+    }
   }
 
   // Save on Enter key for single-line fields (headline)
