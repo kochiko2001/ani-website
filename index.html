@@ -178,6 +178,25 @@
       line-height: inherit;
     }
 
+    /* ── About tagline / pull quote ──────────────── */
+    .about-tagline {
+      font-size: 1.05rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.7;
+      margin: 1.8rem 0 1.6rem;
+      padding-left: 1rem;
+      border-left: 1px solid var(--accent);
+    }
+
+    .about-narrative-break {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 2rem 0;
+      width: 3rem;
+    }
+
     /* ── About section ───────────────────────────── */
     .about {
       margin-bottom: 4rem;
@@ -694,19 +713,37 @@
       </div>
 
       <div class="editable-block" id="block-about-p1">
-        <p id="content-about-p1">Ani Kochiashvili is Head of Portfolio Intelligence at Standard Metrics, where she builds the data architecture and analytical capabilities that underpin the firm's understanding of portfolio and fund performance. She designs scalable systems—integrating workflows, dashboards, and automated processes—that give Investment, IR, and Finance teams a unified, accurate, and real-time view of the business.</p><span class="edit-bar"><button class="pencil-btn" onclick="startEdit('about-p1')" title="Edit paragraph"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('about-p1')">Save</button></span>
+        <p id="content-about-p1">I'm Head of Portfolio Intelligence at Standard Metrics, where I help venture and private equity firms answer questions their data should have been able to answer all along: Which companies are actually performing? Where should capital go next? What patterns predict success or failure?</p><span class="edit-bar"><button class="pencil-btn" onclick="startEdit('about-p1')" title="Edit paragraph"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('about-p1')">Save</button></span>
       </div>
 
       <div class="editable-block" id="block-about-p2">
-        <p id="content-about-p2">Before joining Standard Metrics, Ani was VP of Portfolio Analytics at Battery Ventures, where she built the core infrastructure supporting investment management and portfolio analytics. She unified data and workflows across Finance, Legal, Engineering, and the Investment teams, streamlining operations and enabling faster, more strategic decision-making.</p><span class="edit-bar"><button class="pencil-btn" onclick="startEdit('about-p2')" title="Edit paragraph"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('about-p2')">Save</button></span>
+        <p id="content-about-p2">I work at the intersection of Finance and Investment teams. Finance owns the data and validates its accuracy. Investment teams need it to make decisions. I build the infrastructure that bridges both worlds, then work directly with GPs to put that data to use - informing capital allocation, spotting risks early, and separating signal from noise across the portfolio.</p><span class="edit-bar"><button class="pencil-btn" onclick="startEdit('about-p2')" title="Edit paragraph"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('about-p2')">Save</button></span>
       </div>
 
+      <div class="editable-block" id="block-about-tagline">
+        <p class="about-tagline" id="content-about-tagline">Clean data matters. What you do with it matters more.</p><span class="edit-bar"><button class="pencil-btn" onclick="startEdit('about-tagline')" title="Edit tagline"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('about-tagline')">Save</button></span>
+      </div>
+
+      <hr class="about-narrative-break" />
+
       <div class="editable-block" id="block-about-p3">
-        <p id="content-about-p3">Ani began her career at Deloitte, where she spent a decade advising Fortune 100 clients on strategy, operations, and financial workflows before moving into technology M&amp;A, evaluating startup acquisition targets and collaborating on post-acquisition growth plans.</p><span class="edit-bar"><button class="pencil-btn" onclick="startEdit('about-p3')" title="Edit paragraph"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('about-p3')">Save</button></span>
+        <p id="content-about-p3">Before Standard Metrics, I was VP of Portfolio Analytics at Battery Ventures. Like most firms at the time, Battery's portfolio data lived in systems built for compliance and reporting - not for investment decision-making. Investors tracked performance in spreadsheets because they needed flexibility the systems couldn't provide. Comparing companies across the portfolio meant manual work, and spotting trends required piecing together data from multiple sources.</p><span class="edit-bar"><button class="pencil-btn" onclick="startEdit('about-p3')" title="Edit paragraph"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('about-p3')">Save</button></span>
       </div>
 
       <div class="editable-block" id="block-about-p4">
-        <p id="content-about-p4">Across roles, she is known for bringing clarity to complexity—designing systems and analytics that scale, reduce friction, and elevate how organizations understand and use their data.</p><span class="edit-bar"><button class="pencil-btn" onclick="startEdit('about-p4')" title="Edit paragraph"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('about-p4')">Save</button></span>
+        <p id="content-about-p4">I built the infrastructure that changed that - standardized metric definitions across the portfolio, remapped historical data to enable apples-to-apples comparisons, and created systems that gave the investment team direct visibility into performance. They could run cohort analysis, track trends across vintages, and understand portfolio health without rebuilding spreadsheets every quarter.</p><span class="edit-bar"><button class="pencil-btn" onclick="startEdit('about-p4')" title="Edit paragraph"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('about-p4')">Save</button></span>
+      </div>
+
+      <div class="editable-block" id="block-about-p5">
+        <p id="content-about-p5">I learned how to do this at scale at Y Combinator, where I spent four years as Finance Technology Lead building the investment management platform that powers decision-making across 1000+ portfolio companies. I reengineered finance workflows that had relied on manual processes, architected the cloud-based data infrastructure that centralized siloed data across the portfolio, and built self-service analytics that let partners benchmark performance and spot patterns without waiting for reports. YC's portfolio moves fast. The systems had to keep up.</p><span class="edit-bar"><button class="pencil-btn" onclick="startEdit('about-p5')" title="Edit paragraph"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('about-p5')">Save</button></span>
+      </div>
+
+      <div class="editable-block" id="block-about-p6">
+        <p id="content-about-p6">I started my career at Deloitte, spending nearly a decade advising Fortune 100 clients on operations and financial systems - the kind of infrastructure work that doesn't make headlines but determines whether companies can scale. Then I moved into technology M&amp;A, evaluating startup acquisition targets and building post-acquisition integration plans. That's where I saw the gap: established companies had sophisticated data infrastructure. Startups and their investors didn't. I wanted to fix that.</p><span class="edit-bar"><button class="pencil-btn" onclick="startEdit('about-p6')" title="Edit paragraph"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('about-p6')">Save</button></span>
+      </div>
+
+      <div class="editable-block" id="block-about-p7">
+        <p id="content-about-p7">Across roles, I'm known for bringing clarity to complexity - designing systems and analytics that scale, reduce friction, and elevate how organizations understand and use their data.</p><span class="edit-bar"><button class="pencil-btn" onclick="startEdit('about-p7')" title="Edit paragraph"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="save-btn" onclick="saveEdit('about-p7')">Save</button></span>
       </div>
 
       <div class="social-icons" aria-label="Contact links">
@@ -1202,12 +1239,16 @@
 
   // Map of key → content element id
   const CONTENT_IDS = {
-    'headline':       'content-headline',
-    'about-p1':       'content-about-p1',
-    'about-p2':       'content-about-p2',
-    'about-p3':       'content-about-p3',
-    'about-p4':       'content-about-p4',
-    'role-sm':        'content-role-sm',
+    'headline':        'content-headline',
+    'about-p1':        'content-about-p1',
+    'about-p2':        'content-about-p2',
+    'about-tagline':   'content-about-tagline',
+    'about-p3':        'content-about-p3',
+    'about-p4':        'content-about-p4',
+    'about-p5':        'content-about-p5',
+    'about-p6':        'content-about-p6',
+    'about-p7':        'content-about-p7',
+    'role-sm':         'content-role-sm',
     'role-bv':        'content-role-bv',
     'role-yc':        'content-role-yc',
     'role-di':        'content-role-di',
