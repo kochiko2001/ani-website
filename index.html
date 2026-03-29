@@ -1057,7 +1057,11 @@
       .eq('key', 'profile_image')
       .eq('category', 'hero')
       .maybeSingle();
-    if (!error && data?.value) {
+    if (error) {
+      console.error('[Photo] Supabase query error:', error);
+    } else if (!data?.value) {
+      console.warn('[Photo] No profile image found in database');
+    } else {
       setPhoto(data.value);
     }
   })();
@@ -1244,7 +1248,7 @@
       const saved = localStorage.getItem('ani-' + key);
       if (saved) {
         const el = document.getElementById(elId);
-        if (el) el.innerHTML = DOMPurify.sanitize(saved);
+        if (el) el.innerHTML = (typeof DOMPurify !== 'undefined') ? DOMPurify.sanitize(saved) : saved;
       }
     });
 
@@ -1259,7 +1263,7 @@
           const elId = CONTENT_IDS[key];
           if (elId) {
             const el = document.getElementById(elId);
-            if (el) el.innerHTML = DOMPurify.sanitize(value);
+            if (el) el.innerHTML = (typeof DOMPurify !== 'undefined') ? DOMPurify.sanitize(value) : value;
           }
         });
       }
