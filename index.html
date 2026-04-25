@@ -1147,6 +1147,10 @@
 </div>
 
 <script>
+  window.onerror = (msg, src, line, col, err) => {
+    console.error('[JS ERROR]', msg, 'at line', line, err);
+  };
+
   /* ── Favicon ────────────────────────────────────────── */
   function setInitialsFavicon() {
     const canvas = document.createElement('canvas');
@@ -1250,8 +1254,13 @@
 
   /* ── Lock button logic ─────────────────────────────── */
   function handleLockClick() {
-    if (!supabase) return;
+    console.log('[Lock] clicked, supabase:', !!supabase);
+    if (!supabase) {
+      console.error('[Lock] Supabase not loaded — CDN may have failed. Try hard-refreshing (Ctrl+Shift+R).');
+      return;
+    }
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log('[Lock] session:', !!session);
       if (!session) openModal();
       // If logged in, clicking the lock does nothing — use logout tip instead
     });
